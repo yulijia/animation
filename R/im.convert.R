@@ -70,7 +70,7 @@
 #' @author Yihui Xie
 #' @family utilities
 #' @references Examples at \url{https://yihui.name/animation/example/im-convert/}
-#' 
+#'
 #'   ImageMagick: \url{http://www.imagemagick.org/script/convert.php}
 #'
 #'   GraphicsMagick: \url{http://www.graphicsmagick.org}
@@ -106,7 +106,7 @@ im.convert = function(
         convert=convert_switch
       }
     }
-  } 
+  }
   else {
     ## GraphicsMagick
     version = ''
@@ -139,7 +139,7 @@ im.convert = function(
   cmd = cmd.fun(convert)
   ## if fails on Windows using shell(), try system() instead of shell()
   if (cmd != 0 && .Platform$OS.type == 'windows' && identical(cmd.fun, shell)) {
-    cmd = system(convert)
+    cmd = system2(convert,args=c("-loop",loop,extra.opts,"-delay",interval*100,if (length(interval) == 1) paste(files, collapse = ' ') else files))#system(convert)
   }
   if (cmd == 0) {
     message('Output at: ', output)
