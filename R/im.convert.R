@@ -123,24 +123,24 @@ im.convert = function(
   }
 
   loop = ifelse(isTRUE(ani.options('loop')), 0, ani.options('loop'))
-  convert = sprintf(
-    '%s -loop %s %s %s %s', convert, loop,
-    extra.opts, paste(
-      '-delay', interval * 100,
-      if (length(interval) == 1) paste(files, collapse = ' ') else files,
-      collapse = ' '),
-    shQuote(movie.name)
-  )
+  # convert = sprintf(
+  #   '%s -loop %s %s %s %s', convert, loop,
+  #   extra.opts, paste(
+  #     '-delay', interval * 100,
+  #     if (length(interval) == 1) paste(files, collapse = ' ') else files,
+  #     collapse = ' '),
+  #   shQuote(movie.name)
+  # )
   # there might be an error "the input line is too long", and we need to quote
   # the command; see http://stackoverflow.com/q/682799/559676
-  if (.Platform$OS.type == 'windows') convert = sprintf('"%s"', convert)
-  message('Executing: ', strwrap(convert, exdent = 4, prefix = '\n'))
-  if (interactive()) flush.console()
-  cmd = cmd.fun(convert)
+  # if (.Platform$OS.type == 'windows') convert = sprintf('"%s"', convert)
+  # message('Executing: ', strwrap(convert, exdent = 4, prefix = '\n'))
+  # if (interactive()) flush.console()
+  # cmd = cmd.fun(convert)
   ## if fails on Windows using shell(), try system() instead of shell()
-  if (cmd != 0 && .Platform$OS.type == 'windows' && identical(cmd.fun, shell)) {
+  # if (cmd != 0 && .Platform$OS.type == 'windows' && identical(cmd.fun, shell)) {
     cmd = system2(convert,args=c("-loop",loop,extra.opts,"-delay",interval*100,if (length(interval) == 1) paste(files, collapse = ' ') else files))#system(convert)
-  }
+  # }
   if (cmd == 0) {
     message('Output at: ', output)
     if (clean)
